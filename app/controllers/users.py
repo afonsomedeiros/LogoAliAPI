@@ -1,5 +1,5 @@
 from flask import Blueprint, jsonify, Response, request, current_app
-from flask_jwt_extended import create_access_token, create_refresh_token
+from flask_jwt_extended import create_access_token, create_refresh_token, jwt_required, get_jwt_identity
 
 from app.models.user import User
 from app.serializer.user import User_Schema
@@ -29,7 +29,7 @@ def signin():
     except BaseException as e:
         return jsonify({'err': str(type(e)), 'message': str(e)})
 
-@blue_user.post("login")
+@blue_user.post("/login")
 def login():
     """
         Contract: {
@@ -48,5 +48,26 @@ def login():
                 'refresh_token': refresh_token,
                 'message': "Login succefull!"
             }), 200
+    except BaseException as e:
+        return jsonify({'err': str(type(e)), 'message': str(e)})
+
+
+@blue_user.put("update")
+@jwt_required
+def update():
+    """
+        Contract: {
+            "name": "Afonso Medeiros",
+            "email": "afonso@afonso.com"
+        }
+
+        header: Authentication = JWT_ACCESS_TOKEN
+    """
+    try:
+        user = User.query.filter_by(id=get_jwt_identity()).first()
+        user.name = request.json['name']
+        user.email = request.json['email']
+        current_app.db.session.commit()
+        return User_Schema.jsonify(user)
     except BaseException as e:
         return jsonify({'err': str(type(e)), 'message': str(e)})
