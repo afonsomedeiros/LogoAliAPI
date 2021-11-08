@@ -4,10 +4,10 @@ from flask_jwt_extended import create_access_token, create_refresh_token, jwt_re
 from app.models.user import User
 from app.serializer.user import User_Schema
 
-blue_user = Blueprint("user", __name__, url_prefix="/user")
+#blue_user = Blueprint("user", __name__, url_prefix="/user")
 
 
-@blue_user.post("/signin")
+#@blue_user.post("/signin")
 def signin():
     """
         Contract: {
@@ -29,7 +29,7 @@ def signin():
     except BaseException as e:
         return jsonify({'err': str(type(e)), 'message': str(e)})
 
-@blue_user.post("/login")
+#@blue_user.post("/login")
 def login():
     """
         Contract: {
@@ -52,7 +52,7 @@ def login():
         return jsonify({'err': str(type(e)), 'message': str(e)})
 
 
-@blue_user.put("update")
+#@blue_user.put("update")
 @jwt_required
 def update():
     """
