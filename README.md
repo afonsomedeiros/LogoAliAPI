@@ -102,3 +102,140 @@ Server: Werkzeug/2.0.2 Python/3.8.10
     "refresh_token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTYzNDI4MjMwMywianRpIjoiOWYzYjhjNWUtNDg1Yy00NjBmLTk3MmYtNjRlNmI1MzI1Mzc2IiwidHlwZSI6InJlZnJlc2giLCJzdWIiOjEsIm5iZiI6MTYzNDI4MjMwMywiZXhwIjoxNjM2ODc0MzAzfQ.Qo_2yl1ZM56oh19qflQ8cSExPiPOO5UpkECxMS5aU8A"
 }
 ```
+
+## Lista de End-Points.
+
+```
+path: /user/signin
+method: POST
+Contract: {
+    "name": "Afonso Medeiros",
+    "email": "afonso@afonso.com",
+    "password": "123456"
+}
+Response: {
+    "created_at": "",
+    "email": "",
+    "id": 0,
+    "name": "",
+    "password": "",
+    "updated_at": null
+}
+```
+
+```
+path: /user/login
+method: POST
+Contract: {
+    "email": "afonso@afonso.com",
+    "password": "123456"
+}
+Response: {
+    'access_token': "",
+    'refresh_token': "",
+    'message': ""
+}
+```
+
+```
+path: /user/update
+method: PUT
+Contract: {
+    "name": "Afonso Medeiros",
+    "email": "afonso@afonso.com"
+}
+
+Header:
+    Authorization: Bearer <access_token>
+```
+
+```
+path: /commerce/create
+method: POST
+Contract: {
+    "trading_name": "",
+    "company_name": "",
+    "cover_path": "",
+    "segment": "",
+    "description": "",
+    "cell_number": "",
+    "email": "",
+    "street": "",
+    "number": "",
+    "complement": "",
+    "neighborhood": "",
+    "city": "",
+    "state": "",
+    "zipcode": ""
+}
+Header:
+    Authorization: Bearer <access_token>
+```
+
+```
+path: /commerce/update
+method: PUT
+Contract: {
+    "id": "",
+    "trading_name": "",
+    "company_name": "",
+    "cover_path": "",
+    "segment": "",
+    "description": "",
+    "cell_number": "",
+    "email": "",
+    "street": "",
+    "number": "",
+    "complement": "",
+    "neighborhood": "",
+    "city": "",
+    "state": "",
+    "zipcode": ""
+}
+Header:
+    Authorization: Bearer <access_token>
+```
+
+```
+path: /commerce/<int:id>
+method: GET
+
+Busca Comercio/Serviço através do ID:
+url: /commerce/1
+```
+
+```
+path: /commerce/list
+method: GET
+
+Lista todas as categorias em ordem decrescente pelo ID.
+busca pode ser paginada e limitada utilizando parametros na URL
+exemplo:
+    /commerce/list?page=1
+    /commerce/list?per_page=500
+    /commerce/list?page=5&per_page=5
+```
+
+```
+path: /commerce/search
+method: post
+contract: {
+    "search": ""
+}
+
+Realiza busca utilizando campo "search".
+Consulta se o conteudo do campo "search" está presente nos campos:
+    company_name,
+    trading_name,
+    zipcode,
+    city,
+    complement,
+    description,
+    cell_number,
+    email,
+    neighborhood,
+    segment,
+    state,
+    street
+Da tabela Commerces
+```

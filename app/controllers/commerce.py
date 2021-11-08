@@ -8,13 +8,15 @@ from app.models.user import User
 from app.serializer.commerce import Commerce_Schema
 
 
-blue_commerce = Blueprint("commerce", __name__, url_prefix="/commerce")
+#blue_commerce = Blueprint("commerce", __name__, url_prefix="/commerce")
 
 
-@blue_commerce.post("/create")
+#@blue_commerce.post("/create")
 @jwt_required()
 def create():
     """
+        path: /commerce/create
+        method: POST
         Contract: {
             "trading_name": "",
             "company_name": "",
@@ -46,10 +48,12 @@ def create():
         return jsonify({'err': str(type(e)), 'message': str(e)})
 
 
-@blue_commerce.put("/update")
+#@blue_commerce.put("/update")
 @jwt_required()
 def update():
     """
+        path: /commerce/update
+        method: PUT
         Contract: {
             "id": "",
             "trading_name": "",
@@ -93,9 +97,12 @@ def update():
         return jsonify({'err': str(type(e)), 'message': str(e)})
 
 
-@blue_commerce.get("/<int:id>")
+#@blue_commerce.get("/<int:id>")
 def get(id: int):
     """
+        path: /commerce/<int:id>
+        method: GET
+
         Busca Comercio/Serviço através do ID:
         url: /commerce/1
     """
@@ -106,9 +113,12 @@ def get(id: int):
         return jsonify({'err': str(type(e)), 'message': str(e)})
 
 
-@blue_commerce.get("list")
+#@blue_commerce.get("list")
 def list():
     """
+        path: /commerce/list
+        method: GET
+
         Lista todas as categorias em ordem decrescente pelo ID.
         busca pode ser paginada e limitada utilizando parametros na URL
         exemplo:
@@ -135,9 +145,11 @@ def list():
         return jsonify({'err': str(type(e)), 'message': str(e)})
 
 
-@blue_commerce.post("/search")
+#@blue_commerce.post("/search")
 def search():
     """
+        path: /commerce/search
+        method: post
         Realiza busca utilizando campo "search".
         Consulta se o conteudo do campo "search" está presente nos campos:
             company_name,

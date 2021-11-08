@@ -10,10 +10,20 @@ from app.serializer.user import User_Schema
 #@blue_user.post("/signin")
 def signin():
     """
+        path: /user/signin
+        method: POST
         Contract: {
             "name": "Afonso Medeiros",
             "email": "afonso@afonso.com",
             "password": "123456"
+        }
+        Response: {
+            "created_at": "",
+            "email": "",
+            "id": 0,
+            "name": "",
+            "password": "",
+            "updated_at": null
         }
     """
     try:
@@ -32,9 +42,16 @@ def signin():
 #@blue_user.post("/login")
 def login():
     """
+        path: /user/login
+        method: POST
         Contract: {
             "email": "afonso@afonso.com",
             "password": "123456"
+        }
+        Response: {
+            'access_token': "",
+            'refresh_token': "",
+            'message': ""
         }
     """
     try:
@@ -56,12 +73,15 @@ def login():
 @jwt_required
 def update():
     """
+        path: /user/update
+        method: PUT
         Contract: {
             "name": "Afonso Medeiros",
             "email": "afonso@afonso.com"
         }
 
-        header: Authentication = JWT_ACCESS_TOKEN
+        Header:
+            Authorization: Bearer <access_token>
     """
     try:
         user = User.query.filter_by(id=get_jwt_identity()).first()
